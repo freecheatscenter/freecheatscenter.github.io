@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт для установки игр</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e2f;
+            color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #252540;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            color: #ff6f61;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+        .search-bar {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .search-bar input {
+            padding: 10px;
+            font-size: 16px;
+            width: 50%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #ff6f61;
+            color: white;
+        }
+        .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .game-card {
+            background-color: #2d2d48;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+        .game-info h3 {
+            font-size: 18px;
+            color: #ff6f61;
+        }
+        .game-info p {
+            font-size: 14px;
+            color: #ccc;
+        }
+        .download-btn, .functionality-btn {
+            margin: 10px 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+        }
+        .download-btn {
+            background-color: #ff6f61;
+        }
+        .download-btn:hover {
+            background-color: #ff4f3a;
+        }
+        .functionality-btn {
+            background-color: #4caf50;
+        }
+        .functionality-btn:hover {
+            background-color: #45a049;
+        }
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #333;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 60%;
+            color: #f5f5f5;
+            max-height: 80%;
+            overflow-y: auto; /* Добавлено свойство для прокрутки */
+        }
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            float: right;
+        }
+        .close:hover,
+        .close:focus {
+            color: #f5f5f5;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .game-image {
+            width: 100%;
+            border-radius: 8px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FREE CHEATS CENTER</h1>
+        <p>Скачивай бесплатно лучшие читы прямо сейчас!</p>
+    </header>
+
+    <div class="container">
+        <!-- Поиск игр -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Поиск игры...">
+            <button onclick="searchGames()">Поиск</button>
+        </div>
+
+        <div class="game-list" id="gameList">
+            <!-- CS:GO 2 -->
+            <div class="game-card" data-name="CS:GO 2">
+                <img src="https://cloudgamingcatalogue.com/wp-content/uploads/2023/03/Counter-Strike-2-1024x1024.jpeg" alt="CS:GO 2" class="game-image">
+                <div class="game-info">
+                    <h3>CS:GO 2 CHEAT</h3>
+                    <p>Один из самых популярных шутеров с элементами командной игры.</p>
+                    <a href="https://drive.google.com/uc?export=download&id=15S3dpvWSj_KFZCfcqyL86b-5x3-S0mjX" class="download-btn" target="_blank">Скачать</a>
+                    <button class="functionality-btn" onclick="openModal(1)">Функционал</button>
+                </div>
+            </div>
+
+            <!-- GTA Rage MP -->
+            <div class="game-card" data-name="GTA Rage MP">
+                <img src="https://rage.mp/uploads/monthly_2023_04/rage.webp.06f169c5b49cdd2b6a04b3be424ac3d0.webp" alt="GTA Rage MP" class="game-image">
+                <div class="game-info">
+                    <h3>GTA Rage MP CHEAT</h3>
+                    <p>Мультиплеерная модификация для GTA V, где можно играть с друзьями.</p>
+                    <a href="https://drive.google.com/uc?export=download&id=15S3dpvWSj_KFZCfcqyL86b-5x3-S0mjX" class="download-btn" target="_blank">Скачать</a>
+                    <button class="functionality-btn" onclick="openModal(2)">Функционал</button>
+                </div>
+            </div>
+
+            <!-- Minecraft -->
+            <div class="game-card" data-name="Minecraft">
+                <img src="https://image.api.playstation.com/vulcan/img/cfn/11307x4B5WLoVoIUtdewG4uJ_YuDRTwBxQy0qP8ylgazLLc01PBxbsFG1pGOWmqhZsxnNkrU3GXbdXIowBAstzlrhtQ4LCI4.png" alt="Minecraft" class="game-image">
+                <div class="game-info">
+                    <h3>Minecraft CHEAT</h3>
+                    <p>Постройте свои миры в одном из самых популярных песочниц.</p>
+                    <a href="https://drive.google.com/uc?export=download&id=15S3dpvWSj_KFZCfcqyL86b-5x3-S0mjX" class="download-btn" target="_blank">Скачать</a>
+                    <button class="functionality-btn" onclick="openModal(3)">Функционал</button>
+                </div>
+            </div>
+
+            <!-- Standoff 2 (PC) -->
+            <div class="game-card" data-name="Standoff 2 (PC)">
+                <img src="https://play-lh.googleusercontent.com/1Pzbig1UC4r57DL3A_RazmY4Hm2_3t_m3QS-3qDuYpyhGo7qFb5fe5snX2JlJ93DJv8=w240-h480-rw" alt="Standoff 2 (PC)" class="game-image">
+                <div class="game-info">
+                    <h3>Standoff 2 CHEAT (PC)</h3>
+                    <p>Тактический шутер с множеством режимов для командной игры.</p>
+                    <a href="https://drive.google.com/uc?export=download&id=15S3dpvWSj_KFZCfcqyL86b-5x3-S0mjX" class="download-btn" target="_blank">Скачать</a>
+                    <button class="functionality-btn" onclick="openModal(4)">Функционал</button>
+                </div>
+            </div>
+
+            <!-- Decite -->
+            <div class="game-card" data-name="Decite">
+                <img src="https://media.indiedb.com/images/games/1/59/58757/indiedb.jpg" alt="Decite" class="game-image">
+                <div class="game-info">
+                    <h3>Decite CHEAT</h3>
+                    <p>Мистическая игра в жанре хоррор с элементами головоломки.</p>
+                    <a href="https://drive.google.com/uc?export=download&id=15S3dpvWSj_KFZCfcqyL86b-5x3-S0mjX" class="download-btn" target="_blank">Скачать</a>
+                    <button class="functionality-btn" onclick="openModal(5)">Функционал</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальные окна с функционалом -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(1)">&times;</span>
+            <h2>Функционал игры CS:GO 2</h2>
+            <p>Здесь будет описание функционала игры CS:GO 2...</p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(2)">&times;</span>
+            <h2>Функционал игры GTA Rage MP</h2>
+            <p>Здесь будет описание функционала игры GTA Rage MP...</p>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(3)">&times;</span>
+            <h2>Функционал игры Minecraft</h2>
+            <p>Здесь будет описание функционала игры Minecraft...</p>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(4)">&times;</span>
+            <h2>Функционал игры Standoff 2 (PC)</h2>
+            <p>Здесь будет описание функционала игры Standoff 2 (PC)...</p>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(5)">&times;</span>
+            <h2>Функционал игры Decite</h2>
+            <p>Здесь будет описание функционала игры Decite...</p>
+        </div>
+    </div>
+
+    <script>
+        // Открытие модального окна
+        function openModal(gameId) {
+            var modal = document.getElementById("modal" + gameId);
+            modal.style.display = "block";
+        }
+
+        // Закрытие модального окна
+        function closeModal(gameId) {
+            var modal = document.getElementById("modal" + gameId);
+            modal.style.display = "none";
+        }
+
+        // Поиск игр
+        function searchGames() {
+            var input = document.getElementById('searchInput');
+            var filter = input.value.toUpperCase();
+            var gameList = document.getElementById('gameList');
+            var games = gameList.getElementsByClassName('game-card');
+
+            for (var i = 0; i < games.length; i++) {
+                var game = games[i];
+                var gameName = game.getElementsByClassName('game-info')[0].getElementsByTagName('h3')[0].innerText;
+                if (gameName.toUpperCase().indexOf(filter) > -1) {
+                    game.style.display = "";
+                } else {
+                    game.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
